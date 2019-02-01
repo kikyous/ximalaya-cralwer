@@ -4,7 +4,13 @@ import aria2p
 import json
 import os
 
+print('1. start aria2c: `aria2c --enable-rpc --rpc-listen-all`')
+print('2. login your account and play first track')
+
 driver = webdriver.Chrome()
+driver.get('https://www.ximalaya.com/')
+
+input('3. press any key to start download: ')
 
 aria2 = aria2p.API(
     aria2p.Client(
@@ -58,8 +64,6 @@ class Track:
         }
         aria2.add_uris([self.src], options)
 
-
-input('press any key to start: ')
 
 while True:
     track = Track.get_new_track()
