@@ -2,7 +2,6 @@ from selenium import webdriver
 import time
 import aria2p
 import json
-import os
 
 print('1. start aria2c: `aria2c --enable-rpc --rpc-listen-all`')
 print('2. login your account and play first track')
@@ -18,8 +17,6 @@ aria2 = aria2p.API(
         port=6800,
     )
 )
-
-base_dir = os.getcwd()
 
 
 class Track:
@@ -59,7 +56,7 @@ class Track:
 
     def download(self):
         options = {
-            'dir': f'{base_dir}/{self.album_id}/',
+            'dir': f'{self.album_id}/',
             'out': f'{self.name}.m4a'
         }
         aria2.add_uris([self.src], options)
