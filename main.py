@@ -32,9 +32,9 @@ class Track:
 
     @classmethod
     def current(cls):
-        storage = driver.execute_script("return localStorage.getItem('player_track');")
+        storage = driver.execute_script("return localStorage.getItem('PLAYER_STATE');")
         data = json.loads(storage)
-        return Track(data)
+        return Track(data['currentTrack'])
 
     @classmethod
     def get_new_track(cls):
@@ -55,9 +55,10 @@ class Track:
         time.sleep(0.5)
 
     def download(self):
+        index = len(Track.tracks)
         options = {
             'dir': f'{self.album_id}/',
-            'out': f'{self.name}.m4a'
+            'out': f'{index:04d}-{self.name}.m4a'
         }
         aria2.add_uris([self.src], options)
 
